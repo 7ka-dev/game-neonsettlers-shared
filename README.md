@@ -39,17 +39,26 @@ pnpm run watch      # авто-сборка ESM при правках
 
 ## Цикл разработки с cursor_cards
 
-`cursor_cards/package.json` подключает пакет как `file:../game-neonsettlers-shared`
-(pnpm упаковывает его копию в `node_modules`).
+cursor_cards/package.json подключает пакет из этого репозитория по git-URL:
 
-1. меняете код здесь → `pnpm run build`
-2. в `cursor_cards` → `pnpm run shared:update`
-   (пересоберёт пакет и обновит его копию в `node_modules`)
-3. перезапускаете dev-сервер/клиента
+    git+ssh://git@github.com/7ka-dev/game-neonsettlers-shared.git
+
+pnpm устанавливает упакованную копию на коммите из pnpm-lock.yaml.
+
+1. меняете код здесь → pnpm run build
+2. коммит и пушите dist/ вместе с исходниками — git-зависимость ставит
+   содержимое репозитория, собранный dist/ обязателен
+3. в cursor_cards → pnpm run shared:update
+   (пересоберёт пакет здесь и подтянет новый HEAD репозитория)
+4. перезапускаете dev-сервер/клиента
+
+Правки без коммита/пуша здесь в cursor_cards не видны — такова цена
+подключения из репозитория вместо локальной ile:-ссылки.
 
 ## В cursor_cards
 
 - Типы и импорты: `import ... from 'game-neonsettlers-shared'`
-- Проверка единственного экземпляра `@colyseus/schema` — см. «одна копия» выше
-  (при подключении через `file:` pnpm гарантирует это сам; ломается, если
-  подключать пакет через `link:`/симлинк со своим `node_modules`).
+- Проверка единственного экземпляра @colyseus/schema — см. «одна копия» выше:
+  pnpm упаковывает пакет в свой store, поэтому копии зависимостей одни и те же;
+  ломается, если подключать пакет через `link:`/симлинк со своим 
+ode_modules.
