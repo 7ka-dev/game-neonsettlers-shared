@@ -1,0 +1,31 @@
+import { Schema, MapSchema, ArraySchema } from '@colyseus/schema';
+import { Player } from './Player';
+import { HexTile } from './HexTile';
+import { Road } from './Road';
+import { Settlement } from './Settlement';
+import { Dices } from './Dices';
+import { WildCard } from './WildCard';
+import { Port } from './Port';
+export declare class GameState extends Schema {
+    nameMap: string;
+    players: MapSchema<Player, string>;
+    mapIsReady: boolean;
+    hexTiles: ArraySchema<HexTile>;
+    roads: ArraySchema<Road>;
+    settlements: ArraySchema<Settlement>;
+    ports: ArraySchema<Port>;
+    currentPlayerId: string;
+    ownerId: string;
+    diceRoll: string;
+    dices: Dices;
+    wildCards: ArraySchema<WildCard>;
+    gamePhase: 'setup' | 'prepare1' | 'prepare2' | 'roll' | 'build' | 'finished' | 'bandit' | 'steal' | 'card_road_1' | 'card_road_2';
+    gameState: 'gold' | 'robbery' | 'nothing';
+    turnNumber: number;
+    bandit: string;
+    robberyTargets: ArraySchema<string>;
+    goldTarget: MapSchema<number, string>;
+    withTimer: boolean;
+    timerDuration: number;
+    isPrivateRoom: boolean;
+}
