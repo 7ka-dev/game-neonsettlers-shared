@@ -19,6 +19,7 @@ export interface Resources {
 export interface LogMessage {
     playerId: string;
     message: string;
+    to?: string;
 }
 export declare const KICK_CODE = 4001;
 export type RoomInfo = {
