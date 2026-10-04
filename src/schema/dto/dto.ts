@@ -14,6 +14,7 @@ export interface Resources {
 export interface LogMessage {
     playerId: string;
     message: string;
+    to?: string;
 }
 
 // код выхода из комнаты, означающий что игрока кикнули (4000-4999 — свои коды)

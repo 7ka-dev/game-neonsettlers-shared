@@ -1,6 +1,6 @@
 {
   "name": "game-neonsettlers-shared",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Общий код клиента и сервера Neon Settlers: Colyseus Schema, чистая игровая логика, DTO, утилиты",
   "main": "./dist/cjs/index.js",
   "module": "./dist/esm/index.js",
